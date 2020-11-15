@@ -1,0 +1,111 @@
+What is url pattern
+..................................
+Servlet Configuration
+................................
+web.xml
+.................................
+<servlet>
+	<servlet-name>test</servlet-name>
+	<servlet-class>com.servelt.Test</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>test</servlet-name>
+	<url-pattern>/testurl</url-pattern>
+</servlet-mapping>
+
+Difference types of url patterns (According to servlet spefication)
+...................................................................................................
+a)Exact Match url pattern
+b)Directory Match url pattern
+c)Extension Match url pattern
+
+Exact Match url pattern
+.............................................
+=>Must start with "/" symbol
+=>Contain multiple words/letters seperately with "/" symbols.
+=>Can have special characters, but they must taken as other first char.
+Example1: <url-pattern>/test1</url-pattern>
+
+request urls from browser
+.............................................
+http://localhost:2525/DateApp/test (valid)
+		/DateApp/test1.c(invalid)
+		/DateApp/test(invalid)
+		/DateApp/first/test(invalid)
+		/DateApp/test1/first(invalid)
+
+other examples
+................................
+Example1: <url-pattern>/test1/test2</url-pattern>
+Example2: <url-pattern>/test1.c</url-pattern>
+Example3: <url-pattern>/x/y/test1.c</url-pattern>
+
+url in browser address bar:
+	http://localhost:2525/DateApp/x/y/test1.c
+
+<!-- Exact match url pattern in servlet-->
+..................................................
+<servlet-mapping>
+		<servlet-name>test</servlet-name>
+		 <url-pattern>/</url-pattern>
+		 <url-pattern>/test1</url-pattern>
+		<url-pattern>/test1.java</url-pattern> 
+		<url-pattern>/test2/*</url-pattern>
+		<url-pattern>/test2*</url-pattern>
+	</servlet-mapping>
+
+Directory Match url pattern
+..............................................
+==>must start with "/" symbol and must end with "*"
+==>can have multiple letters or words seperately with "/" symbol
+Example1:
+.....................
+<servlet-mapping>
+		<servlet-name>test</servlet-name>
+		 <url-pattern>/x/y/*</url-pattern>
+		 <url-pattern>/test1</url-pattern>
+		<url-pattern>/test1.java</url-pattern> 
+		<url-pattern>/test2/*</url-pattern>
+		<url-pattern>/test2*</url-pattern>
+		or <url-pattern>/test2/*</url-pattern>
+</servlet-mapping>
+request urls: http://localhost:2525/DateApp/x/y/123.c (valid)
+			   /DateApp/x/y/z/hello.c(valid)
+			  /DateApp/x/y/(valid)
+			 /DateApp/y/x/hello(invalid)
+			 /DateApp/x/y/first/12.cpp(valid)
+
+other examples
+.......................
+ example1:<url-pattern>/x/*</url-pattern>
+ example2:<url-pattern>/first/second/*</url-pattern>
+ example3:<url-pattern>/a/b/c/*</url-pattern>
+ 
+Extension Match url pattern
+.............................................
+=>url pattern should start with "*" and should contain extension
+ letter or word.
+example:
+in web.xml
+....................
+<url-pattern>*.do<url-pattern>
+
+example request urls
+.......................................
+	http://localhost:2525/DateApp/hello.do (valid)
+			/DateApp/x/y/abc.do (valid)
+			/DateApp/y/z/abc/xyz.do (valid)
+			/DateApp/x.do/y (invalid)
+			/DateApp/.do (valid)
+			/DateApp/x/y.c (invalid)
+
+other examples
+...............................................................................
+example1:<url-pattern>*.c<url-pattern>
+example2:<url-pattern>*.nit<url-pattern>
+example3:<url-pattern>*.faces<url-pattern>
+
+example:<url-pattern>/x/y/z/abc.do<url-pattern>
+example:<url-pattern>/x/y/z/*.c<url-pattern>( wrong url pattern formation)
+https://docs.roguewave.com/hydraexpress/3.5.0/html/rwsfservletug/4-3.html 
+https://docs.roguewave.com/hydraexpress/3.5.0/html/rwsfservletug/booktoc.html
